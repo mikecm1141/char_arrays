@@ -1,46 +1,56 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-/*
-Challenges
-    Create a function that counts the number of characters in a string
-    @params
-        char array
-    @output
-        int length
-
-    Concatenate two character strings
-    @params
-        char result[]
-        const char str1[]
-        const char str2[]
-    @output
-        returns void
-
-    Compare two strings to see if they are equal
-    @params
-        const char str1[]
-        const char str2[]
-    @output
-        returns a bool
-*/
-
-int strlength(char str[]);
+int strlength(const char str[]);
+void concat(char result[], const char str1[], const char str2[]);
+bool isequal(const char str1[], const char str2[]);
 
 int main()
 {
-    char str[] = "This is my string.";
+    char str1[] = "This is my first string.";
+    char str2[] = "This is my fisst string.";
+    char result[100];
 
-    int length = strlength(str);
+    int length = strlength(str1);
+    printf("The length of my first string: %d\n", length);
 
-    printf("The length of my string: %d\n", length);
+    printf("Equal? %d\n",  isequal(str1, str2));
 
     return 0;
 }
 
-int strlength(char str[])
+bool isequal(const char str1[], const char str2[])
 {
-    int count = 0;
+    bool result = true;
+
+    if (strlength(str1) != strlength(str2))
+        return false;
+
+    int i;
+    for (i = 0; str1[i] != '\0'; ++i)
+    {
+        if (str1[i] != str2[i])
+            result = false;
+    }
+
+    return result;
+}
+
+int strlength(const char str[])
+{
+    int count;
     for (count = 0; str[count] != '\0'; ++count);
     return count;
+}
+
+void concat(char result[], const char str1[], const char str2[])
+{
+    int i, j;
+
+    for (i = 0; str1[i] != '\0'; ++i)
+        result[i] = str1[i];
+    for (j = 0; str2[j] != '\0'; ++j)
+        result[i + j] = str2[j];
+
+    result[i + j] = '\0';
 }
